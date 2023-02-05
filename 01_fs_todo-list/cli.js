@@ -2,25 +2,33 @@ const program = require('commander')
 const api = require('./index')
 
 program
-  .option('-d, --debug', 'output extra debugging')
-  .option('-s, --small', 'small pizza size')
-  .option('-p, --pizza-type <type>', 'flavour of pizza')
+  .command('ls')
+  .description('show all tasks')
+  .action(() => {
+    api.show()
+  })
 
 program
   .command('add <source> [destination]')
   .description('add a new task')
   .action((...args) => {
     const newTaskName = args.slice(0, -2).join(' ')
-    api.add(newTaskName)
+    api.add(newTaskName).then(() => {
+      console.log('Adding task succeeded.')
+    }).catch(() => {
+      console.log('Adding task failed.')
+    })
   })
 
 program
   .command('clear')
   .description('clear all tasks')
-  .action((...args) => {
-    console.log('clear all tasks')
+  .action(() => {
+    api.clear().then(() => {
+      console.log('Clearing task succeeded.')
+    }).catch(() => {
+      console.log('Clearing task failed.')
+    })
   })
 
 program.parse(process.argv)
-
-console.log(program.xxx)
