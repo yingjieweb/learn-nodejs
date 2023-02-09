@@ -1,6 +1,10 @@
 {
   "name": "01_fs_todo-list",
   "version": "0.0.1",
+  "bin": {
+    "lol": "cli.js"
+  },
+  "files": [ "*.js" ],
   "main": "index.js",
   "license": "MIT",
   "dependencies": {
