@@ -1,9 +1,62 @@
 const db = require('./db')
 const inquirer = require('inquirer')
 
+
+function askForAction(taskList, taskIndex) {
+  inquirer.prompt({
+    type: 'list',
+    name: 'action',
+    message: 'Please select the operation for task',
+    choices: [
+      {name: 'Mark as done', value: 'markAsDone'},
+      {name: 'Mark as undone', value: 'markAsUndone'},
+      {name: 'Change task name', value: 'updateTaskName'},
+      {name: 'Remove task', value: 'remove'},
+      {name: 'Quit', value: 'quit'}
+    ]
+  }).then(answer => {
+    switch (answer.action) {
+      case 'markAsDone':
+        taskList[taskIndex].isDone = true
+        db.write(taskList)
+        break;
+      case 'markAsUndone':
+        taskList[taskIndex].isDone = false
+        db.write(taskList)
+        break;
+      case 'updateTaskName':
+        inquirer.prompt({
+          type: 'input',
+          name: 'name',
+          message: 'Please input new task name',
+          default: taskList[taskIndex].name
+        }).then(answer1 => {
+          taskList[taskIndex].name = answer1.name
+          db.write(taskList)
+        })
+        break;
+      case 'remove':
+        const remainedTask = taskList.filter((_, index) => index !== taskIndex)
+        db.write(remainedTask)
+        break;
+      default:
+        break;
+    }
+  })
+}
+function askForCreateTask(taskList) {
+  inquirer.prompt({
+    type: 'input',
+    name: 'name',
+    message: 'Please input task name'
+  }).then(answer => {
+    taskList.push({name: answer.name, isDone: false})
+    db.write(taskList)
+  })
+}
+
 module.exports.show = async () => {
   const taskList = await db.read()
-  console.log('taskList', taskList);
   inquirer.prompt({
     type: 'list',
     name: 'index',
@@ -17,58 +70,9 @@ module.exports.show = async () => {
   }).then((answer) => {
     const taskIndex = parseInt(answer.index)
     if (taskIndex >= 0) {
-      inquirer.prompt({
-        type: 'list',
-        name: 'action',
-        message: 'Please select the operation for task',
-        choices: [
-          {name: 'Mark as done', value: 'markAsDone'},
-          {name: 'Mark as undone', value: 'markAsUndone'},
-          {name: 'Change task name', value: 'updateTaskName'},
-          {name: 'Remove task', value: 'remove'},
-          {name: 'Quit', value: 'quit'}
-        ]
-      }).then(answer2 => {
-        console.log(answer2.action);
-        switch (answer2.action) {
-          case 'markAsDone':
-            taskList[taskIndex].isDone = true
-            db.write(taskList)
-            break;
-          case 'markAsUndone':
-            taskList[taskIndex].isDone = false
-            db.write(taskList)
-            break;
-          case 'updateTaskName':
-            inquirer.prompt({
-              type: 'input',
-              name: 'name',
-              message: 'Please input new task name',
-              default: taskList[taskIndex].name
-            }).then(answer3 => {
-              console.log(answer3);
-              taskList[taskIndex].name = answer3.name
-              db.write(taskList)
-            })
-            break;
-          case 'remove':
-            const remainedTask = taskList.filter((_, index) => index !== taskIndex)
-            db.write(remainedTask)
-            break;
-          default:
-            break;
-        }
-      })
+      askForAction(taskList, taskIndex)
     } else if (taskIndex === -1) {
-      inquirer.prompt({
-        type: 'input',
-        name: 'name',
-        message: 'Please input task name',
-        default: taskList[taskIndex].name
-      }).then(answer4 => {
-        taskList.push({name: answer4.name, isDone: false})
-        db.write(taskList)
-      })
+      askForCreateTask(taskList)
     }
   });
 }
