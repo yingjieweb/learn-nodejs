@@ -3,6 +3,9 @@ const fs = require('fs')
 jest.mock('fs')
 
 describe('db', () => {
+  afterEach(() => {
+    fs.clearMocks()
+  })
   it('can read', async () => {
     const testData = [{name: 'taskName', isDone: false}]
     fs.setReadMock('/testReadPath', null, JSON.stringify(testData))
