@@ -1,0 +1,12 @@
+{
+  "name": "02_http_static-server",
+  "version": "1.0.0",
+  "description": "- Run `yarn global add ts-node-dev` to install tsnd\r - Run `npm/yarn init -y` to create `package.json` in your project",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
