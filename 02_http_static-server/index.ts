@@ -16,6 +16,12 @@ server.on("request", (request: IncomingMessage, response: ServerResponse) => {
   request.on('end', () => {
     const body = Buffer.concat(array).toString()
     console.log('POST body', body);
+
+    response.statusCode = 404
+    response.setHeader('NAME', 'YINGJIEWEB')
+    response.write('1\n')
+    response.write('2\n')
+    response.write('3\n')
     response.end();
   })
 });
