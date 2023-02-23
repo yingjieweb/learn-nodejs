@@ -47,10 +47,10 @@
   "resolved" "https://registry.npmmirror.com/@tsconfig/node16/-/node16-1.0.3.tgz"
   "version" "1.0.3"
 
-"@types/node@*", "@types/node@^18.14.0":
-  "integrity" "sha512-5EWrvLmglK+imbCJY0+INViFWUHg1AHel1sq4ZVSfdcNqGy9Edv3UB9IIzzg+xPaUcAgZYcfVs2fBcwDeZzU0A=="
-  "resolved" "https://registry.npmmirror.com/@types/node/-/node-18.14.0.tgz"
-  "version" "18.14.0"
+"@types/node@*", "@types/node@^18.14.1":
+  "integrity" "sha512-QH+37Qds3E0eDlReeboBxfHbX9omAcBCXEzswCu6jySP642jiM3cYSIkU/REqwhCUqXdonHFuBfJDiAJxMNhaQ=="
+  "resolved" "https://registry.npmmirror.com/@types/node/-/node-18.14.1.tgz"
+  "version" "18.14.1"
 
 "@types/strip-bom@^3.0.0":
   "integrity" "sha512-xevGOReSYGM7g/kUBZzPqCrR/KYAo+F0yiPc85WFTJa0MSLtyFTVTU6cJu/aV4mid7IffDIWqo69THF2o4JiEQ=="
