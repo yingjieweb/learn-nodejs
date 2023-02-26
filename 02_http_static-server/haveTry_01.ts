@@ -1,3 +1,6 @@
+/* 
+ * feature_1: return resources base on different url
+ */
 import * as http from "http";
 import { IncomingMessage, ServerResponse } from "http";
 import * as fs from "fs";
@@ -41,6 +44,8 @@ server.on("request", (request: IncomingMessage, response: ServerResponse) => {
       );
       break;
     default:
+      response.statusCode = 404
+      response.end()
       break;
   }
 });
